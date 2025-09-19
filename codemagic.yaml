@@ -1,0 +1,17 @@
+workflows:
+  android-release-workflow:
+    name: Android Release (Final Ready)
+    environment:
+      flutter: stable
+    scripts:
+      - name: Flutter pub get
+        script: |
+          flutter pub get
+      - name: Generate launcher icons (flutter_launcher_icons)
+        script: |
+          flutter pub run flutter_launcher_icons:main || true
+      - name: Build release APK
+        script: |
+          flutter build apk --release
+    artifacts:
+      - build/app/outputs/flutter-apk/app-release.apk
